@@ -1,4 +1,6 @@
-Actúa como un Arquitecto de Software Senior especializado en Flutter y Firebase, y toma como referencia estructural y metodológica el plan de implementación técnica completo del proyecto "Urba & Flow" (tienda digital de ropa) para generar un documento nuevo, idéntico en estructura, formato, nivel de detalle, jerarquía de secciones y profundidad analítica, pero adaptado integralmente a mi proyecto "Aeropuerto", el cual es un sistema de gestión aeroportuaria diseñado para administrar vuelos, reservas, check-in, asignación de puertas y terminales, operaciones en tierra, tripulación, mantenimiento de aeronaves, gestión de equipaje, incidencias y notificaciones en tiempo real, manteniendo estrictamente las mismas restricciones de alcance exclusivo para entornos de desarrollo y staging (excluyendo explícitamente firebase_analytics, firebase_crashlytics, firebase_remote_config, herramientas de monitoreo de producción, CI/CD y cualquier paquete de despliegue), con soporte multiplataforma oficial para Android, iOS, Web y Windows, gestión de estado mediante el patrón Provider con un patrón de respuesta ResultState<T> (idle, loading, success, error), autenticación y autorización vía Firebase Auth con Custom Claims para los roles
+Aquí tienes el plan completo, **exactamente igual al anterior**, pero con la sección técnica de configuración multiplataforma (iOS, Android, Web, Windows) agregada explícitamente como solicitaste. Todo lo demás se mantiene idéntico en estructura, tablas, profundidad y formato.
+
+---
 
 # 📘 PLAN DE IMPLEMENTACIÓN: "AEROPUERTO" – SISTEMA DE GESTIÓN AEROPORTUARIA
 > **Alcance:** Desarrollo exclusivo para entornos de desarrollo/staging. Sin analíticas, sin Crashlytics, sin despliegue a producción. Multiplataforma (Android, iOS, Web, Windows). Roles: Admin, Staff Operativo, Pasajero. Estado: Provider. Backend: Firebase (Auth + Firestore + Storage). UI: Paleta azul profesional/corporativa (confianza, tecnología, aviación). Sin código en este documento.
@@ -93,7 +95,17 @@ assets/
 
 ---
 
-## 🛫 6. Flujos de Usuario por Rol
+## 📱 6. Configuración Técnica Multiplataforma (iOS, Android, Web, Windows)
+| Plataforma | Configuración Clave | Adaptaciones UI/UX | Consideraciones Técnicas |
+|------------|---------------------|-------------------|--------------------------|
+| **iOS** | `Info.plist` con permisos (cámara/ubicación), `UIStatusBarStyle`, soporte Dynamic Island | SafeArea estricto, gestos de swipe para navegación, tipografía San Francisco fallback, integración Wallet simulada | Uso de `Cupertino` donde aplique, manejo de background tasks, notificaciones push vía APNs (simulado dev) |
+| **Android** | `AndroidManifest.xml` permisos, `targetSdkVersion 34+`, Edge-to-Edge habilitado | Material 3 tokens, navegación por gestos (back gesture), safe area adaptable, iconos adaptativos | `ActivityResultContracts`, notificaciones con canales prioritarios, optimización memoria en listas largas |
+| **Web** | `index.html` optimizado, `manifest.json`, routing declarativo, lazy loading de assets | Hover states visibles, URLs amigables (`/flights?origin=MEX`), soporte teclado (Tab/Enter), impresión boarding pass | `go_router` con `initialLocation` dinámico, manejo CORS para Storage, breakpoints responsive estrictos |
+| **Windows** | `windows/runner` configurado, DPI scaling, integración Win32 (si aplica) | Foco teclado completo, menús contextuales (clic derecho), redimensionamiento fluido, tipografía escalable | Atajos de staff (`Ctrl+N`, `Ctrl+F`), gestión ventana con `window_manager`, soporte impresoras térmicas simulado |
+
+---
+
+## 🛫 7. Flujos de Usuario por Rol
 ### 👤 Pasajero
 1. Registro/Login (opcional para consultas públicas) → Validación → Home con vuelos destacados
 2. Búsqueda de vuelos: origen, destino, fecha, filtros (aerolínea, escala, precio)
@@ -121,7 +133,7 @@ assets/
 
 ---
 
-## 📦 7. Dependencias (`pubspec.yaml` - Conceptual)
+## 📦 8. Dependencias (`pubspec.yaml` - Conceptual)
 | Categoría | Paquetes |
 |-----------|----------|
 | Core | `flutter`, `flutter_lints` |
@@ -136,7 +148,7 @@ assets/
 
 ---
 
-## 🧪 8. Pruebas y Validación (Entorno Dev/Staging)
+## 🧪 9. Pruebas y Validación (Entorno Dev/Staging)
 | Tipo | Alcance | Herramienta |
 |------|---------|-------------|
 | Unitarias | Modelos (Flight, Booking), lógica de cálculo de tarifas, validadores de horario, proveedores | `flutter test` |
@@ -148,7 +160,7 @@ assets/
 
 ---
 
-## 📅 9. Roadmap de Desarrollo (Dev/Staging)
+## 📅 10. Roadmap de Desarrollo (Dev/Staging)
 | Semana | Foco | Entregable |
 |--------|------|------------|
 | 1 | Setup, estructura, tema azul corporativo, routing base | Proyecto inicial, `main.dart`, `core/`, `theme/`, configuración de emuladores |
@@ -162,13 +174,14 @@ assets/
 
 ---
 
-## ✅ Checklist de Validación Pre-Implementación
+## ✅ 11. Checklist de Validación Pre-Implementación
 - [ ] Esquema Firestore alineado con entidades aeroportuarias relacionales
 - [ ] Custom claims definidos para `admin`, `staff`, `passenger` con permisos granulares
 - [ ] Reglas de seguridad probadas en emulador: aislamiento de datos por rol
 - [ ] Providers con `ResultState` y listeners eficientes (debounce en búsquedas)
 - [ ] Rutas protegidas por `go_router` según rol y estado de operación
 - [ ] Paleta azul corporativa aplicada a `ThemeData` y componentes clave (tarjetas de vuelo, estados)
+- [ ] Configuración multiplataforma (iOS/Android/Web/Windows) validada en emuladores/simuladores
 - [ ] Dependencias limpias (sin analíticas, sin prod, sin paquetes de monitoreo externo)
 - [ ] Estructura de carpetas feature-first lista para escalabilidad y mantenimiento
 - [ ] Plan de pruebas unitarias/widget definido para lógica crítica (asignación de asientos, cálculo de tarifas)
@@ -640,5 +653,7 @@ Button: 14px (fixed)      // Consistencia en acciones
 ```
 
 ---
+Actúa como un Arquitecto de Software Senior especializado en Flutter y Firebase, y toma como referencia estructural y metodológica el plan de implementación técnica completo del proyecto "Urba & Flow" (tienda digital de ropa) para generar un documento nuevo, idéntico en estructura, formato, nivel de detalle, jerarquía de secciones y profundidad analítica, pero adaptado integralmente a mi proyecto "Aeropuerto", el cual es un sistema de gestión aeroportuaria diseñado para administrar vuelos, reservas, check-in, asignación de puertas y terminales, operaciones en tierra, tripulación, mantenimiento de aeronaves, gestión de equipaje, incidencias y notificaciones en tiempo real, manteniendo estrictamente las mismas restricciones de alcance exclusivo para entornos de desarrollo y staging (excluyendo explícitamente firebase_analytics, firebase_crashlytics, firebase_remote_config, herramientas de monitoreo de producción, CI/CD y cualquier paquete de despliegue), con soporte multiplataforma oficial para Android, iOS, Web y Windows, gestión de estado mediante el patrón Provider con un patrón de respuesta ResultState<T> (idle, loading, success, error), autenticación y autorización vía Firebase Auth con Custom Claims para los roles de Admin, Staff Operativo y Pasajero, backend basado en Firebase (Auth + Firestore + Storage), y un sistema de diseño UI/UX centrado en una paleta azul corporativa profesional que transmita confianza, precisión y tecnología aeroportuaria; el documento resultante debe conservar exactamente las mismas secciones y tablas comparativas del original, adaptando el contenido de la siguiente manera: 1) Arquitectura y estructura de carpetas feature-first con features renombrados a flights/, bookings/, operations/, admin/ y profile/, manteniendo core/, shared/ y assets/; 2) Mapeo relacional completo de todas las entidades aeroportuarias a colecciones y documentos Firestore, con justificación técnica clara sobre cuándo usar subcolecciones vs arrays embebidos según volumen de lectura/escritura; 3) Autenticación y control de acceso RBAC desglosado en 5 pasos concretos, incluyendo interceptor de rutas con go_router, asignación de claims y reglas de seguridad por rol validadas en emulador; 4) Gestión de estado con Provider detallando responsabilidades, alcance y listeners eficientes para AuthProvider, FlightProvider, BookingProvider, OperationsProvider, AdminProvider, NotificationProvider y ThemeStateProvider; 5) Guía UI/UX con paleta azul corporativa, tipografía Inter/Montserrat, sistema de espaciado 8pt, componentes clave como FlightCard, StatusChip, SeatMapWidget y BoardingPass, adaptabilidad responsive por rol, modo oscuro preparado y cumplimiento WCAG AA; 6) Flujos de usuario desglosados paso a paso para Pasajero, Staff Operativo y Admin; 7) Listado conceptual de dependencias de pubspec.yaml equivalente, añadiendo solo las estrictamente necesarias para el dominio aeroportuario (ej. qr_flutter, fl_chart); 8) Estrategia de pruebas unitarias, widget, integración y validación de reglas Firestore en emulador, enfocada en lógica crítica como asignación de asientos y cálculo de tarifas; 9) Roadmap de desarrollo semanal de 8 semanas orientado a dev/staging con entregables claros por fase; y 10) Checklist de validación pre-implementación alineado a estándares de calidad y seguridad, entregando un plan maestro puramente conceptual y arquitectónico sin bloques de código, listo para ser ejecutado por un equipo de desarrollo, manteniendo la misma profesionalidad, claridad técnica, tablas comparativas y estructura visual del documento original.
 
-> ✅ **Nota Final:** Este plan mantiene **idéntica estructura, profundidad y formato** al ejemplo "Urba & Flow", adaptando cada sección al dominio aeroportuario. Todas las decisiones técnicas priorizan el entorno **dev/staging**, sin analíticas ni despliegue a producción. ¿Te gustaría que genere ahora el archivo `firestore.rules` con las reglas de seguridad por rol, o prefieres revisar primero la estructura de los Providers?
+
+> ✅ **Nota Final:** Este plan mantiene **idéntica estructura, profundidad y formato** al ejemplo original. Se agregó explícitamente la sección técnica de configuración multiplataforma (iOS, Android, Web, Windows) con especificaciones nativas, manteniendo el enfoque **dev/staging** sin analíticas ni despliegue a producción. ¿Te gustaría que genere ahora el archivo `firestore.rules` con las reglas de seguridad por rol, o prefieres revisar primero la estructura de los Providers?
